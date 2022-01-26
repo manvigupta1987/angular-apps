@@ -1,20 +1,29 @@
-import { Component, ComponentFactoryResolver } from '@angular/core';
+import { Component, ComponentFactoryResolver, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { AuthService, AuthResponseData } from './auth.service';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { PlaceHolderDirective } from '../shared/placeholder/placeholder.directive';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html'
 })
-export class AuthComponent {
+export class AuthComponent implements OnDestroy {
+  ngOnDestroy(): void {
+    if(this.closeRef) {
+      this.closeRef.unsubscribe();
+    }
+  }
   isLoginMode = true;
   isLoading = false;
   error: string = null;
+  @ViewChild(PlaceHolderDirective, {static: false}) alertHost : PlaceHolderDirective;
+  private closeRef: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver) {}
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -60,6 +69,16 @@ export class AuthComponent {
 
 
   private showErrorAlert(message: string) {
+    const alertComponentFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+    const hostViewContainerRef =  this.alertHost.viewContainerRef;
+    hostViewContainerRef.clear(); // to clear anything rendered previously.
+    const componentRef = hostViewContainerRef.createComponent(alertComponentFactory); // to create a new component where ngTemplate with directive name is used. 
+    
+    componentRef.instance.message = message;
+    this.closeRef = componentRef.instance.close.subscribe(() => {
+      this.closeRef.unsubscribe();
+      hostViewContainerRef.clear();
+    })
 
   }
 }
