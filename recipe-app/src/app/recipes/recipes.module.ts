@@ -6,7 +6,6 @@ import { recipeDetailsComponent } from './recipe-details/recipe-details.componen
 import { RecipeStartComponent } from './recipe-start/recipe-start.component';
 import { RecipeAddedComponent } from './recipe-added/recipe-added.component';
 import { RouterModule, Routes } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from '../auth/auth.guard';
 import { RecipesResolverService } from './recipes-resolver.service';
