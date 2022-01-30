@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from '../auth/auth.guard';
 import { RecipesResolverService } from './recipes-resolver.service';
+import { SharedModule } from '../shared/shared-module';
 
 const routes: Routes = [
   {path: 'recipes', component: recipesComponent, canActivate: [AuthGuard], children:[
@@ -30,7 +31,7 @@ const routes: Routes = [
     RecipeStartComponent,
     RecipeAddedComponent,
   ],
-  imports: [RouterModule.forChild(routes), CommonModule, ReactiveFormsModule],
+  imports: [RouterModule.forChild(routes), ReactiveFormsModule, SharedModule],
   exports: [
   ]
 
