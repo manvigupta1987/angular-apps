@@ -6,10 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {HeaderComponent} from './header/header.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
-import { RecipeModule } from './recipes/recipes.module';
-import { SharedModule } from './shared/shared-module';
-import { AuthModule } from './auth/auth-module';
-import {ShoppingListModule} from './shopping-list/shopping-list.module';
+import { SharedModule } from './shared/shared-module'
 
 @NgModule({
   declarations: [
@@ -20,10 +17,7 @@ import {ShoppingListModule} from './shopping-list/shopping-list.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RecipeModule,
-    ShoppingListModule,
     SharedModule,
-    AuthModule,
     ],
   providers: [
     {

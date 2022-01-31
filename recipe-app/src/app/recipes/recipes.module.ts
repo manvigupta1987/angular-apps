@@ -12,7 +12,9 @@ import { RecipesResolverService } from './recipes-resolver.service';
 import { SharedModule } from '../shared/shared-module';
 
 const routes: Routes = [
-  {path: 'recipes', component: recipesComponent, canActivate: [AuthGuard], children:[
+  // its important to have the empty path here for lazy loading to work. Since the 'recipes' module is added
+  // in the app.routing.ts, So, whenever /recipe is loaded, it will load the children  module as well. 
+  {path: '', component: recipesComponent, canActivate: [AuthGuard], children:[
     {path: '', component: RecipeStartComponent},
     {path: 'new', component: RecipeAddedComponent},
     {path: ':id', component: recipeDetailsComponent, resolve: [RecipesResolverService]},
