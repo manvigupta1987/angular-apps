@@ -3,7 +3,8 @@
     <app-shopping-edit ></app-shopping-edit>
     <br>
     <ul class="list-gtoup">
-      <a class="list-group-item" style="cursor: pointer" *ngFor="let ingredient of ingredients; let i = index" (click)="onEditItem(i)">
+      <a class="list-group-item" style="cursor: pointer" *ngFor="let ingredient of (ingredients | async).ingredients; let i = index" (click)="onEditItem(i)">
+        <!-- using async here subscribe to the ingredients observable and when the data is available, you can access the ingredients  -->
         {{ingredient.name}} ({{ ingredient.amount}})
       </a>
     </ul>
