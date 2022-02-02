@@ -33,7 +33,7 @@
               class="btn btn-success btn-block"
               type="submit"
               [disabled]="!f.valid">
-              {{editMode === true ? "Update" : "Add"}}
+              {{editMode ? 'Update' : 'Add'}}
             </button>
           </div>
           <div class="col-xs-2" *ngIf="editMode">
